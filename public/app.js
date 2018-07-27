@@ -36,8 +36,8 @@ function rerender() {
 
 // Our good friend setState paying us a visit from ReactVille
 function setState(newState) {
-    if (newState.items) state.items = newState.items;
-    if (newState.formInput) state.formInput = newState.formInput;
+    if (newState.items !== undefined) state.items = newState.items;
+    if (newState.formInput !== undefined) state.formInput = newState.formInput;
     rerender();
 }
 
