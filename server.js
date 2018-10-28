@@ -15,11 +15,11 @@ let serverState = {
     items: []
 }
 
-app.get('/items', (req, res) => {
+app.get('/items', function(req, res)  {
     res.send(JSON.stringify(serverState.items));
 })
 
-app.post('/addItem', (req, res) => {
+app.post('/addItem', function(req, res)  {
     let parsedBody = JSON.parse(req.body.toString())
     // The following could be rewritten in a shorter way using push.
     // I'm trying to ween everyone off of push
@@ -27,4 +27,6 @@ app.post('/addItem', (req, res) => {
     res.send(JSON.stringify(serverState.items));
 })
 
-app.listen(3000, () => console.log('Example app listening on port 3000!'))
+app.listen(3000, function() {
+     console.log('Example app listening on port 3000!')
+})
