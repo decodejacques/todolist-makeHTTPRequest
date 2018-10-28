@@ -11,15 +11,13 @@ function makeHTTPRequest(meth, path, body, cb) {
     fetch(path, {
         body: body,
         method: meth
+    }).then(function (response) {
+        return response.text()
+    }).then(function (responseBody) {
+        if (cb) {
+            return cb(responseBody)
+        }
     })
-        .then(function (response) {
-            return response.text()
-        })
-        .then(function (responseBody) {
-            if(cb) {
-                return cb(responseBody)
-            } 
-        })
 }
 
 // We're going to try and stick with React's way of doing things
@@ -33,7 +31,7 @@ function rerender() {
 
     let d = document.getElementById("items");
     d.innerHTML = '';
-    state.items.forEach(function(item) {
+    state.items.forEach(function (item) {
         let li = document.createElement("li");
         li.innerText = item;
         d.appendChild(li)
@@ -49,7 +47,7 @@ function setState(newState) {
 
 function sendItemToServer(item) {
     // This function is so short it could be inlined
-    let cb = function(itemsFromServer) {
+    let cb = function (itemsFromServer) {
         let parsedItems = JSON.parse(itemsFromServer)
         setState({ items: parsedItems })
     }
@@ -64,7 +62,7 @@ function submitForm() {
 
 // When the client starts he needs to populate the list of items
 function getAllItems() {
-    let cb = function(itemsFromServer) {
+    let cb = function (itemsFromServer) {
         let parsedItems = JSON.parse(itemsFromServer)
         setState({ items: parsedItems })
     }
